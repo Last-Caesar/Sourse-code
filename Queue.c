@@ -5,6 +5,7 @@
 
 int pushQueue(int *arr, int v, int *First, int *Last, int *F, int *E, int n);
 int popQueue(int *arr, int *v, int *First, int *Last, int *F, int *E, int n);
+void printArr(int *arr, int n);
 
 int main()
 {
@@ -23,13 +24,17 @@ int main()
 			printf("Enter a number\n");
 			scanf("%d", &value);
 			if (pushQueue(arr, value, &First, &Last, &Full, &Empty, SIZE) == -1)
-				printf("Error: Queue is full\n");;
+				printf("Error: Queue is full\n");
+			else
+				printArr(arr, SIZE);
 			break;
 		case '2':
 			if (popQueue(arr, &value, &First, &Last, &Full, &Empty, SIZE) == -1)
 				printf("Error: Queue is empty\n");
-			else
+			else{
 				printf("%d\n", value);
+				printArr(arr, SIZE);
+			}
 			break;
 		case 27: // 27 mean "Esc"
 			exit = 1;
@@ -63,6 +68,7 @@ int popQueue(int *arr, int *v, int *First, int *Last, int *F, int *E, int n)
 		return -1;
 	}
 	*v = arr[*First];
+	arr[*First] = 0;
 	++*First;
 	*F = 0;
 	*First %= n;
@@ -72,4 +78,10 @@ int popQueue(int *arr, int *v, int *First, int *Last, int *F, int *E, int n)
 	return 0;
 }
 
-
+void printArr(int *arr, int n)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		printf("%d\t", arr[i]);
+	printf("\n");
+}
